@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biblioteca Romántica</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+background: linear-gradient(135deg,#fde2e4,#fff1e6,#e2ece9);
+color:#3b2f2f;
+}
+
+header{
+text-align:center;
+padding:25px;
+background:#be123c;
+color:white;
+font-size:28px;
+font-weight:bold;
+}
+
+.sub{
+text-align:center;
+color:#7a1f2b;
+margin-top:-10px;
+}
+
+.container{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:20px;
+padding:20px;
+}
+
+.card{
+background:white;
+border-radius:15px;
+overflow:hidden;
+box-shadow:0 10px 25px rgba(0,0,0,0.15);
+transition:0.3s;
+}
+
+.card:hover{
+transform:scale(1.02);
+}
+
+img{
+width:100%;
+height:320px;
+object-fit:cover;
+}
+
+.content{
+padding:15px;
+}
+
+h2{
+color:#be123c;
+margin:5px 0;
+}
+
+button{
+margin-top:10px;
+padding:8px 12px;
+border:none;
+border-radius:10px;
+cursor:pointer;
+background:#ef4444;
+color:white;
+font-weight:bold;
+margin-right:5px;
+}
+
+button:hover{
+background:#b91c1c;
+}
+
+.info{
+display:none;
+margin-top:10px;
+font-size:14px;
+line-height:1.4;
+}
+
+a{
+color:#b91c1c;
+font-weight:bold;
+text-decoration:none;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>💖 Biblioteca Romántica</header>
+<p class="sub">Colección de romance 📚</p>
+
+<div class="container" id="lista"></div>
+
+<script>
+
+const libros = [
+
+{
+titulo:"El mapa de los anhelos",
+autor:"Alice Kellen",
+anio:"2022",
+img:"https://avifyshop.com/cr/elmapadelosanhelosalicekellen.html",
+desc:"Historia de amor, pérdidas y crecimiento personal.",
+link:"https://avifyshop.com/cr/elmapadelosanhelosalicekellen.html"
+},
+
+{
+titulo:"Orgullo y Prejuicio",
+autor:"Jane Austen",
+anio:"1813",
+img:"https://librerialannister.com/product/orgullo-y-prejuicio-3/",
+desc:"Amor clásico entre Elizabeth Bennet y Mr. Darcy.",
+link:"https://librerialannister.com/product/orgullo-y-prejuicio-3/"
+},
+
+{
+titulo:"Sentido y Sensibilidad",
+autor:"Jane Austen",
+anio:"1811",
+img:"https://www.akal.com/libro/sentido-y-sensibilidad-edicion-anotada_55105/",
+desc:"Dos hermanas enfrentan amor y sociedad.",
+link:"https://www.akal.com/libro/sentido-y-sensibilidad-edicion-anotada_55105/"
+},
+
+{
+titulo:"Cartas a los perdidos",
+autor:"Brigid Kemmerer",
+anio:"2017",
+img:"https://www.oceano.com.ec/online/index.php?id_product=10797&controller=product",
+desc:"Dos jóvenes conectan por cartas.",
+link:"https://www.oceano.com.ec/online/index.php?id_product=10797&controller=product"
+},
+
+{
+titulo:"El día que dejó de nevar en Alaska",
+autor:"Alice Kellen",
+anio:"2017",
+img:"https://www.encantadalibros.ar/productos/el-dia-que-dejo-de-nevar-en-alaska-alice-kellen-edicion-tapa-dura-pocket/?srsltid=AfmBOoqe-GcExm9Tt5sSJtxCt6o-m15G68PUD_WJRYJi-GB36P4r4AyM",
+desc:"Amor en Alaska y segundas oportunidades.",
+link:"https://www.encantadalibros.ar/productos/el-dia-que-dejo-de-nevar-en-alaska-alice-kellen-edicion-tapa-dura-pocket/"
+},
+
+{
+titulo:"Si fuéramos eternos",
+autor:"Emma Gil",
+anio:"Contemporáneo",
+img:"https://www.planetadelibros.us/libro-si-fueramos-eternos/443039",
+desc:"Amor sin límites y decisiones difíciles.",
+link:"https://www.planetadelibros.us/libro-si-fueramos-eternos/443039"
+},
+
+{
+titulo:"El arte de ser nosotros",
+autor:"Inma Rubiales",
+anio:"2022",
+img:"https://escritoras.com/libros/si-fueramos-eternos",
+desc:"Dos jóvenes que sanan heridas a través del amor.",
+link:"https://escritoras.com/libros/si-fueramos-eternos"
+},
+
+{
+titulo:"Mejor que en las películas",
+autor:"Lynn Painter",
+anio:"2021",
+img:"https://www.reddit.com/r/RomanceBooks/comments/1g9iseo/lynn_painter_better_than_the_movies_series/?tl=es-es",
+desc:"El amor real vs expectativas.",
+link:"https://www.amazon.com"
+}
+
+];
+
+function render(){
+
+let cont=document.getElementById("lista");
+cont.innerHTML="";
+
+libros.forEach(l=>{
+
+let div=document.createElement("div");
+div.className="card";
+
+div.innerHTML=`
+<img src="${l.img}" onerror="this.src='https://via.placeholder.com/400x600?text=Imagen+no+disponible'">
+<div class="content">
+
+<h2>${l.titulo}</h2>
+<p><b>Autor:</b> ${l.autor}</p>
+<p><b>Año:</b> ${l.anio}</p>
+
+<button onclick="toggle(this)">📖 Ver descripción</button>
+<button onclick="window.open('${l.link}','_blank')">🔗 Abrir libro</button>
+
+<div class="info">
+<p>${l.desc}</p>
+</div>
+
+</div>
+`;
+
+cont.appendChild(div);
+});
+
+}
+
+function toggle(btn){
+let info = btn.parentElement.querySelector(".info");
+info.style.display = info.style.display==="block"?"none":"block";
+}
+
+render();
+
+</script>
+
+</body>
+</html>
